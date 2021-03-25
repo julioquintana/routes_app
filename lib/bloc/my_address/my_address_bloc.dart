@@ -12,6 +12,7 @@ class MyAddressBloc extends Bloc<MyAddressEvent, MyAddressState> {
   MyAddressBloc() : super(MyAddressState());
 
   final _geolocator = new Geolocator();
+
   // ignore: cancel_subscriptions
   StreamSubscription<Position> _positionSubscription;
 
@@ -22,20 +23,19 @@ class MyAddressBloc extends Bloc<MyAddressEvent, MyAddressState> {
   void startTracking() {
     final geoLocationOptions =
         LocationOptions(accuracy: LocationAccuracy.high, distanceFilter: 10);
-    this
+    _positionSubscription = this
         ._geolocator
         .getPositionStream(geoLocationOptions)
         .listen((Position position) {
-      add(OnChangedLocation(LatLng(position.latitude, position.longitude)));
+      final newLocation = new LatLng(position.latitude, position.longitude);
+      add(OnChangedLocation(newLocation));
     });
   }
 
   @override
-  Stream<MyAddressState> mapEventToState(
-    MyAddressEvent event,
-  ) async* {
+  Stream<MyAddressState> mapEventToState(MyAddressEvent event) async* {
     if (event is OnChangedLocation) {
-      // print(event.location);
+      print(event.location);
       yield state.copyWith(existeUbicacion: true, location: event.location);
     }
     //   print('state: ${state.location}');

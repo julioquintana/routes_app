@@ -5,6 +5,8 @@ import 'package:rutas_app2/pages/gps_access_page.dart';
 import 'package:rutas_app2/pages/loading_page.dart';
 import 'package:rutas_app2/pages/map_page.dart';
 
+import 'bloc/map/map_bloc.dart';
+
 void main() {
   runApp(MyApp());
 }
@@ -16,6 +18,7 @@ class MyApp extends StatelessWidget {
     return MultiBlocProvider(
       providers: [
         BlocProvider(create: (_) => MyAddressBloc()),
+        BlocProvider(create: (_) => MapBloc()),
       ],
       child: MaterialApp(
         title: 'Flutter Demo',

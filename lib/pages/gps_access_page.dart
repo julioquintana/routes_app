@@ -27,7 +27,7 @@ class _GpsAccessPageState extends State<GpsAccessPage>
 
   @override
   didChangeAppLifecycleState(AppLifecycleState state) async {
-    if (state == AppLifecycleState.resumed && !popup) {
+    if (state == AppLifecycleState.paused && !popup) {
       if (await Permission.location.isGranted) {
         Navigator.pushReplacementNamed(context, LoadingPage.route);
       }
