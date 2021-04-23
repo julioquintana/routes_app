@@ -29,4 +29,9 @@ class MapBloc extends Bloc<MapEvent, MapState> {
       yield state.copyWith(mapDone: true);
     }
   }
+
+  void moveCam(LatLng _goto) {
+    final camUpdated = CameraUpdate.newLatLng(_goto);
+    this._mapController?.animateCamera(camUpdated);
+  }
 }
